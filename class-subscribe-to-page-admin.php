@@ -21,7 +21,7 @@ class Subscribe_To_Page_Admin {
      */
     public function __construct() {
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts_styles' ) );
-        add_action( 'admin_init', array( $this, 'add_email' ) );
+        add_action( 'admin_init', array( $this, 'check_email_updates' ) );
         add_action( 'admin_menu', array( $this, 'init' ), 0 );
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
     }
@@ -121,11 +121,15 @@ class Subscribe_To_Page_Admin {
         <?php
     }
 
-    public function add_email() {
-        if ( ! isset( $_POST['stp_admin_add_email'] ) || ! wp_verify_nonce( sanitize_key( $_POST['stp_admin_add_email'] ), 'add_email' ) ) {
-            return false;
-        }
+    public function check_email_updates() {
+        if ( isset( $_POST['stp_admin_add_email'] ) && wp_verify_nonce( sanitize_key( $_POST['stp_admin_add_email'] ), 'add_email' ) ) :
+            $this->add_email();
+        elseif ( isset( $_GET['action'] ) && 'remove-email' == $_GET['action'] ) :
+            $this->remove_email();
+        endif;
+    }
 
+    public function add_email() {
         $email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
         $add_email = true;
         $email_list = get_option( 'subscribe_to_post_emails', array() );
@@ -147,6 +151,21 @@ class Subscribe_To_Page_Admin {
                 $this->notices['success'] = 'Email address added';
             endif;
         }
+
+        update_option( 'subscribe_to_post_emails', $email_list );
+    }
+
+    public function remove_email() {
+        $email_id = isset( $_GET['emailid'] ) ? sanitize_text_field( wp_unslash( $_GET['emailid'] ) ) : '';
+        $email_list = get_option( 'subscribe_to_post_emails', array() );
+
+        // error if not or invalid email.
+        if ( empty( $email_id ) ) :
+            $this->notices['error'] = 'Invalid email address';
+        elseif ( isset( $email_list[ $email_id ] ) ) :
+            $this->notices['success'] = 'Email address removed';
+            unset( $email_list[ $email_id ] );
+        endif;
 
         update_option( 'subscribe_to_post_emails', $email_list );
     }
