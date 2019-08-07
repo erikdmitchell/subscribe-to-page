@@ -11,8 +11,24 @@
  */
 class Subscribe_To_Page_Admin {
 
+    /**
+     * Notices
+     *
+     * (default value: array())
+     *
+     * @var array
+     * @access public
+     */
     public $notices = array();
 
+    /**
+     * Settings
+     *
+     * (default value: array())
+     *
+     * @var array
+     * @access public
+     */
     public $settings = array();
 
     /**
@@ -65,7 +81,7 @@ class Subscribe_To_Page_Admin {
                             <th scope="row"><label for="email_notification">Email Notification</label></th>
                             <td>
                                 <p>This is the email notification that will go out when the page is updated.</p>
-                                <p><textarea name="email_notification" rows="10" cols="50" id="email_notification" class="large-text code"><?php echo $this->settings['email_notification']; ?></textarea></p>
+                                <p><textarea name="email_notification" rows="10" cols="50" id="email_notification" class="large-text code"><?php echo esc_html( $this->settings['email_notification'] ); ?></textarea></p>
                             </td>
                         </tr>
                     </tbody>
@@ -104,13 +120,13 @@ class Subscribe_To_Page_Admin {
 
                     <tbody id="the-list">
                         <?php foreach ( $email_list as $key => $email ) : ?>
-                            <tr id="email-<?php echo $key; ?>" class="email-<?php echo $key; ?> email hentry">
+                            <tr id="email-<?php echo esc_html( $key ); ?>" class="email-<?php echo esc_html( $key ); ?> email hentry">
                                 <td class="email column-email column-primary" data-colname="Email">
-                                    <div class="row-name"><?php echo $email; ?></div>
+                                    <div class="row-name"><?php echo esc_html( $email ); ?></div>
                                 </td>
                                 
                                 <td class="actions column-actions" data-colname="Actions">
-                                    <strong><a class="delete" href="<?php echo admin_url( 'options-general.php?page=subscribe-to-page&action=remove-email&emailid=' . $key ); ?>" aria-label="delete">Delete</a></strong>
+                                    <strong><a class="delete" href="<?php echo esc_url( admin_url( 'options-general.php?page=subscribe-to-page&action=remove-email&emailid=' . $key ) ); ?>" aria-label="delete">Delete</a></strong>
                                 </td>               
                             </tr>
                         <?php endforeach; ?>
@@ -140,9 +156,13 @@ class Subscribe_To_Page_Admin {
      * Add email to the list.
      *
      * @access public
-     * @return void
+     * @return bool
      */
     public function add_email() {
+        if ( ! isset( $_POST['stp_admin_add_email'] ) || ! wp_verify_nonce( sanitize_key( $_POST['stp_admin_add_email'] ), 'add_email' ) ) :
+            return false;
+        endif;
+
         $email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
         $add_email = true;
         $email_list = get_option( 'subscribe_to_post_emails', array() );
@@ -166,6 +186,8 @@ class Subscribe_To_Page_Admin {
         }
 
         update_option( 'subscribe_to_post_emails', $email_list );
+        
+        return;
     }
 
     /**
@@ -193,7 +215,7 @@ class Subscribe_To_Page_Admin {
      * Custom admin notices function.
      *
      * @access public
-     * @return void
+     * @return bool
      */
     public function admin_notices() {
         if ( empty( $this->notices ) ) {
@@ -202,11 +224,13 @@ class Subscribe_To_Page_Admin {
 
         foreach ( $this->notices as $notice_class => $notice_message ) :
             ?>
-            <div class="notice notice-<?php echo $notice_class; ?> is-dismissible">
-                <p><?php echo $notice_message; ?></p>
+            <div class="notice notice-<?php echo esc_html( $notice_class ); ?> is-dismissible">
+                <p><?php echo esc_html( $notice_message ); ?></p>
             </div>
             <?php
         endforeach;
+        
+        return;
     }
 
     /**
