@@ -107,6 +107,7 @@ final class Subscribe_To_Page {
     public function includes() {
         // include classes.
         include_once( SUBSCRIBE_TO_PAGE_PATH . 'class-subscribe-to-page-admin.php' );
+        include_once( SUBSCRIBE_TO_PAGE_PATH . 'class-subscribe-to-page-controls.php' );
         include_once( SUBSCRIBE_TO_PAGE_PATH . 'class-subscribe-to-page-shortcode.php' );
         include_once( SUBSCRIBE_TO_PAGE_PATH . 'functions.php' );
     }

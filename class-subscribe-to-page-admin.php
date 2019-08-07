@@ -249,7 +249,7 @@ class Subscribe_To_Page_Admin {
         $settings = wp_parse_args( $settings, $this->default_settings() );
 
         update_option( 'subscribe_to_post_settings', $settings );
-        
+
         return;
     }
 
