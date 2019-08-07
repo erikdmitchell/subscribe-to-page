@@ -31,7 +31,7 @@ class Subscribe_To_Page_Controls {
      * @return void
      */
     public function scripts_styles() {
-        wp_register_script( 'subscribe-to-page-controls-script', SUBSCRIBE_TO_PAGE_URL . 'js/page-controls.js', array( 'jquery' ), SUBSCRIBE_TO_PAGE_VERSION, true );
+        wp_register_script( 'subscribe-to-page-controls-script', SUBSCRIBE_TO_PAGE_URL . 'js/page-controls.min.js', array( 'jquery' ), SUBSCRIBE_TO_PAGE_VERSION, true );
 
         wp_localize_script(
             'subscribe-to-page-controls-script',
@@ -44,7 +44,7 @@ class Subscribe_To_Page_Controls {
 
         wp_enqueue_script( 'subscribe-to-page-controls-script' );
 
-        wp_enqueue_style( 'subscribe-to-page-controls-style', SUBSCRIBE_TO_PAGE_URL . 'css/page-controls.css', '', SUBSCRIBE_TO_PAGE_VERSION );
+        wp_enqueue_style( 'subscribe-to-page-controls-style', SUBSCRIBE_TO_PAGE_URL . 'css/page-controls.min.css', '', SUBSCRIBE_TO_PAGE_VERSION );
     }
 
     /**
