@@ -43,7 +43,7 @@ class Subscribe_To_Page_Shortcode {
 
         $html .= '<div class="subscribe-to-page-form-wrap">';
             $html .= '<div id="subscribe-to-page-form-response"></div>';
-            $html .= '<div id="stp-ajax-loader-container"><div class="stp-ajax-loader-spinner"><img src="'.get_site_url(null, '/wp-admin/images/wpspin_light-2x.gif').'" /></div></div>';
+            $html .= '<div id="stp-ajax-loader-container"><div class="stp-ajax-loader-spinner"><img src="' . get_site_url( null, '/wp-admin/images/wpspin_light-2x.gif' ) . '" /></div></div>';
             $html .= '<form id="subscribe-to-page-form" class="subscribe-to-page-form" method="post">';
                 $html .= '<div class="subscribe-to-page-form-row">';
                     $html .= '<label for="email">Email</label><input type="email" id="email" name="email" value="" />';
@@ -95,8 +95,8 @@ class Subscribe_To_Page_Shortcode {
             'status' => '',
             'message' => '',
         );
-        $email = $_POST['email'];
-        $unsubscribe = $_POST['unsubscribe'];
+        $email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
+        $unsubscribe = isset( $_POST['unsubscribe'] ) ? sanitize_text_field( wp_unslash( $_POST['unsubscribe'] ) ) : '';
         $add_email = true;
         $email_list = get_option( 'subscribe_to_post_emails', array() );
 
@@ -122,7 +122,7 @@ class Subscribe_To_Page_Shortcode {
             $add_email = false;
         }
 
-        // add to email option
+        // add to email option.
         if ( $add_email ) {
             $response['status'] = 'success';
             $response['message'] = 'Your email address has been added';
