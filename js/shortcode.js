@@ -1,3 +1,5 @@
+/* global stpShortcodeObject */
+
 jQuery('.subscribe-to-page-form-submit').click(function(e) {
     e.preventDefault();
 
@@ -5,7 +7,6 @@ jQuery('.subscribe-to-page-form-submit').click(function(e) {
 });
 
 function formSubmit() {
-    var main = jQuery(this);
     var unsubscribe = 0;
 
     loadSTPajaxLoader();
@@ -24,10 +25,10 @@ function formSubmit() {
     jQuery.post(stpShortcodeObject.ajax_url, data, function(response) {
         closeSTPajaxLoader();
         
-        var response = jQuery.parseJSON(response);
+        response = jQuery.parseJSON(response);
         var msgClass = '';
         
-        if (response.status == 'error') {
+        if (response.status === 'error') {
             msgClass = 'error';    
         } else {
             msgClass = 'success';
@@ -36,7 +37,7 @@ function formSubmit() {
         var html = '<div class="'+msgClass+'">' + response.message + '</div>';
         
         jQuery('#subscribe-to-page-form-response').html(html);
-        jQuery('#subscribe-to-page-form').find("input[type=email], input[type=checkbox]").val("");
+        jQuery('#subscribe-to-page-form').find('input[type=email], input[type=checkbox]').val('');
     });
 
 }
