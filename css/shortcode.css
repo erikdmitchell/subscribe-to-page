@@ -1,7 +1,3 @@
-.subscribe-to-page-form-wrap {
-    position: relative;
-}
-#subscribe-to-page-form-response {}
 #stp-ajax-loader-container {
     display: none;
     background: rgba(255, 255, 255, 0.5) !important;
@@ -17,5 +13,3 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.subscribe-to-page-form {}
-.subscribe-to-page-form-row {}
