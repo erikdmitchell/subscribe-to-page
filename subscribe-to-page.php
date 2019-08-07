@@ -5,7 +5,7 @@
  * Description: Allows visitors to subscribe to a page so they receive an email when the page is updated.
  * Version: 0.1.0
  * Author: Erik Mitchell
- * Author URI: 
+ * Author URI:
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: subscribe-to-page
