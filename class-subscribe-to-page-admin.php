@@ -13,6 +13,8 @@ class Subscribe_To_Page_Admin {
 
     public $notices = array();
 
+    public $settings = array();
+
     /**
      * Construct class.
      *
@@ -21,6 +23,7 @@ class Subscribe_To_Page_Admin {
      */
     public function __construct() {
         add_action( 'admin_init', array( $this, 'check_email_updates' ) );
+        add_action( 'admin_init', array( $this, 'update_admin_settings' ) );
         add_action( 'admin_menu', array( $this, 'init' ), 0 );
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
     }
@@ -33,10 +36,19 @@ class Subscribe_To_Page_Admin {
      */
     public function init() {
         add_options_page( 'Subscribe to Page', 'Subscribe to Page', 'manage_options', 'subscribe-to-page', array( $this, 'admin_page' ) );
+
+        $this->settings = $this->get_settings();
     }
 
+    /**
+     * Admin page.
+     *
+     * @access public
+     * @return void
+     */
     public function admin_page() {
         $email_list = get_option( 'subscribe_to_post_emails', array() );
+        print_r( $this->settings );
         ?>
         
         <div class="wrap">
@@ -45,7 +57,7 @@ class Subscribe_To_Page_Admin {
             <h2>Settings</h2>
             
             <form id="subscribe-to-page-admin-settings" method="post">
-                <?php wp_nonce_field( 'update_settings', 'stp-admin-settings' ); ?>
+                <?php wp_nonce_field( 'update_settings', 'stp_admin_settings' ); ?>
 
                 <table class="form-table">
                     <tbody>
@@ -53,7 +65,7 @@ class Subscribe_To_Page_Admin {
                             <th scope="row"><label for="email_notification">Email Notification</label></th>
                             <td>
                                 <p>This is the email notification that will go out when the page is updated.</p>
-                                <p><textarea name="email_notification" rows="10" cols="50" id="email_notification" class="large-text code"></textarea></p>
+                                <p><textarea name="email_notification" rows="10" cols="50" id="email_notification" class="large-text code"><?php echo $this->settings['email_notification']; ?></textarea></p>
                             </td>
                         </tr>
                     </tbody>
@@ -110,6 +122,12 @@ class Subscribe_To_Page_Admin {
         <?php
     }
 
+    /**
+     * See if we need to update the email list.
+     *
+     * @access public
+     * @return void
+     */
     public function check_email_updates() {
         if ( isset( $_POST['stp_admin_add_email'] ) && wp_verify_nonce( sanitize_key( $_POST['stp_admin_add_email'] ), 'add_email' ) ) :
             $this->add_email();
@@ -118,6 +136,12 @@ class Subscribe_To_Page_Admin {
         endif;
     }
 
+    /**
+     * Add email to the list.
+     *
+     * @access public
+     * @return void
+     */
     public function add_email() {
         $email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
         $add_email = true;
@@ -144,6 +168,12 @@ class Subscribe_To_Page_Admin {
         update_option( 'subscribe_to_post_emails', $email_list );
     }
 
+    /**
+     * Remove email from the list.
+     *
+     * @access public
+     * @return void
+     */
     public function remove_email() {
         $email_id = isset( $_GET['emailid'] ) ? sanitize_text_field( wp_unslash( $_GET['emailid'] ) ) : '';
         $email_list = get_option( 'subscribe_to_post_emails', array() );
@@ -159,6 +189,12 @@ class Subscribe_To_Page_Admin {
         update_option( 'subscribe_to_post_emails', $email_list );
     }
 
+    /**
+     * Custom admin notices function.
+     *
+     * @access public
+     * @return void
+     */
     public function admin_notices() {
         if ( empty( $this->notices ) ) {
             return;
@@ -171,6 +207,49 @@ class Subscribe_To_Page_Admin {
             </div>
             <?php
         endforeach;
+    }
+
+    /**
+     * Update admin settings.
+     *
+     * @access public
+     * @return void
+     */
+    public function update_admin_settings() {
+        if ( ! isset( $_POST['stp_admin_settings'] ) || ! wp_verify_nonce( sanitize_key( $_POST['stp_admin_settings'] ), 'update_settings' ) ) :
+            return false;
+        endif;
+
+        $settings = array();
+        $settings['email_notification'] = isset( $_POST['email_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['email_notification'] ) ) : '';
+        $settings = wp_parse_args( $settings, $this->default_settings() );
+
+        update_option( 'subscribe_to_post_settings', $settings );
+    }
+
+    /**
+     * Default admin settings.
+     *
+     * @access private
+     * @return array
+     */
+    private function default_settings() {
+        return array(
+            'email_notification' => '',
+        );
+    }
+
+    /**
+     * Get admin settings.
+     *
+     * @access public
+     * @return array
+     */
+    public function get_settings() {
+        $settings = get_option( 'subscribe_to_post_settings', array() );
+        $settings = wp_parse_args( $settings, $this->default_settings() );
+
+        return $settings;
     }
 }
 
