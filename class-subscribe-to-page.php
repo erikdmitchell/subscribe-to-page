@@ -116,7 +116,6 @@ final class Subscribe_to_Page {
      * @return void
      */
     private function init_hooks() {
-        add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts_styles' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts_styles' ) );
         add_action( 'init', array( $this, 'init' ), 0 );
         add_action( 'init', array( $this, 'load_includes' ), 0 );
@@ -130,16 +129,6 @@ final class Subscribe_to_Page {
      * @return void
      */
     public function init() {
-        // nothing.
-    }
-
-    /**
-     * Include admin scripts and styles.
-     *
-     * @access public
-     * @return void
-     */
-    public function admin_scripts_styles() {
         // nothing.
     }
 
@@ -160,7 +149,7 @@ final class Subscribe_to_Page {
      * @return void
      */
     public function load_includes() {
-/*
+        /*
         $dirs = array( 'shortcodes', 'post-types', 'taxonomies', 'metaboxes', 'widgets' );
 
         foreach ( $dirs as $dir ) :
@@ -168,7 +157,7 @@ final class Subscribe_to_Page {
                 include_once( $file );
             endforeach;
         endforeach;
-*/
+        */
     }
 
 }
