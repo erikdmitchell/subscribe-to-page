@@ -20,7 +20,6 @@ class Subscribe_To_Page_Admin {
      * @return void
      */
     public function __construct() {
-        add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts_styles' ) );
         add_action( 'admin_init', array( $this, 'check_email_updates' ) );
         add_action( 'admin_menu', array( $this, 'init' ), 0 );
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
@@ -34,16 +33,6 @@ class Subscribe_To_Page_Admin {
      */
     public function init() {
         add_options_page( 'Subscribe to Page', 'Subscribe to Page', 'manage_options', 'subscribe-to-page', array( $this, 'admin_page' ) );
-    }
-
-    /**
-     * Include admin scripts and styles.
-     *
-     * @access public
-     * @return void
-     */
-    public function admin_scripts_styles() {
-        // nothing.
     }
 
     public function admin_page() {
