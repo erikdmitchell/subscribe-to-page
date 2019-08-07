@@ -36,15 +36,15 @@ function formSubmit() {
         var html = '<div class="'+msgClass+'">' + response.message + '</div>';
         
         jQuery('#subscribe-to-page-form-response').html(html);
-console.log(response);
+        jQuery('#subscribe-to-page-form').find("input[type=email], input[type=checkbox]").val("");
     });
 
 }
 
 function loadSTPajaxLoader() {
-    jQuery('.ne-ajax-loader-container').show();
+    jQuery('#stp-ajax-loader-container').show();
 }
 
 function closeSTPajaxLoader() {
-    jQuery('.ne-ajax-loader-container').hide();
+    jQuery('#stp-ajax-loader-container').hide();
 }

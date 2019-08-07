@@ -43,6 +43,7 @@ class Subscribe_To_Page_Shortcode {
 
         $html .= '<div class="subscribe-to-page-form-wrap">';
             $html .= '<div id="subscribe-to-page-form-response"></div>';
+            $html .= '<div id="stp-ajax-loader-container"><div class="stp-ajax-loader-spinner">spinner</div></div>';
             $html .= '<form id="subscribe-to-page-form" class="subscribe-to-page-form" method="post">';
                 $html .= '<div class="subscribe-to-page-form-row">';
                     $html .= '<label for="email">Email</label><input type="email" id="email" name="email" value="" />';
@@ -106,9 +107,9 @@ class Subscribe_To_Page_Shortcode {
 
             $add_email = false;
 
-            foreach ($email_list as $key => $email_address) :
-                if ($email == $email_address) :
-                    unset($email_list[$key]);
+            foreach ( $email_list as $key => $email_address ) :
+                if ( $email == $email_address ) :
+                    unset( $email_list[ $key ] );
                 endif;
             endforeach;
         }
@@ -127,15 +128,15 @@ class Subscribe_To_Page_Shortcode {
             $response['message'] = 'Your email address has been added';
 
             // check if dup.
-            if (in_array($email, $email_list)) :
+            if ( in_array( $email, $email_list ) ) :
                 // do nothing - already in list.
                 $response['status'] = 'error';
-                $response['message'] = 'Your email address is already on our list';                
+                $response['message'] = 'Your email address is already on our list';
             else :
-                $email_list[] = $email;            
+                $email_list[] = $email;
             endif;
         }
-        
+
         update_option( 'subscribe_to_post_emails', $email_list );
 
         echo json_encode( $response );
