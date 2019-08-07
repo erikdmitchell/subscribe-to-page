@@ -9,7 +9,7 @@
 
 /**
  * Get settings.
- * 
+ *
  * @access public
  * @return array
  */
