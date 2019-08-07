@@ -7,11 +7,11 @@
  */
 
 /**
- * Final Subscribe_to_Page class.
+ * Final Subscribe_To_Page class.
  *
  * @final
  */
-final class Subscribe_to_Page {
+final class Subscribe_To_Page {
 
     /**
      * Version
@@ -171,7 +171,7 @@ final class Subscribe_to_Page {
  * @return instance
  */
 function subscribe_to_page() {
-    return Subscribe_to_Page::instance();
+    return Subscribe_To_Page::instance();
 }
 
 // Global for backwards compatibility.

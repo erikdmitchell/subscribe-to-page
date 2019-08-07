@@ -9,7 +9,7 @@
 /**
  * Subscribe_to_Page_Admin class.
  */
-class Subscribe_to_Page_Admin {
+class Subscribe_To_Page_Admin {
 
     /**
      * Construct class.
@@ -65,4 +65,4 @@ class Subscribe_to_Page_Admin {
 
 }
 
-new Subscribe_to_Page_Admin();
+new Subscribe_To_Page_Admin();

@@ -7,9 +7,9 @@
  */
 
 /**
- * Boomi_CMS_Shortcodes_Resources class.
+ * Subscribe_To_Page_Shortcode class.
  */
-class Subscribe_to_Page_Shortcode {
+class Subscribe_To_Page_Shortcode {
 
     /**
      * __construct function.
@@ -21,35 +21,26 @@ class Subscribe_to_Page_Shortcode {
         add_action( 'wp_ajax_nopriv_boomi_load_more_resources', array( $this, 'ajax_load_more_resources' ) );
         add_action( 'wp_ajax_boomi_load_more_resources', array( $this, 'ajax_load_more_resources' ) );
 
-        add_shortcode( 'resources', array( $this, 'boomi_resources_shortcode' ) );
+        add_shortcode( 'subscribe_to_page', array( $this, 'subscribe_to_page_shortcode' ) );
     }
 
     /**
-     * Resources shortcode.
+     * Subscribe to page shortcode.
      *
      * @access public
      * @param mixed $atts (array).
      * @return html
      */
-    public function boomi_resources_shortcode( $atts ) {
+    public function subscribe_to_page_shortcode( $atts ) {
         $atts = shortcode_atts(
-            array(
-                'category' => 'all',
-                'type'  => 'resource, marketo',
-                'offset' => 0,
-                'orderby' => 'date',
-                'category_ignore' => 'boomi, community',
-                'show_filters' => true,
-            ),
+            array(),
             $atts,
-            'news-and-events'
+            'subscribe_to_page'
         );
-        $atts['count'] = 10;
 
         $html = '';
-        $args = $this->resources_args( $atts );
 
-        wp_enqueue_script( 'boomi-cms-resources-script' );
+        //wp_enqueue_script( 'boomi-cms-resources-script' );
 
         return $html;
     }
@@ -68,4 +59,4 @@ class Subscribe_to_Page_Shortcode {
 
 }
 
-new Subscribe_to_Page_Shortcode();
+new Subscribe_To_Page_Shortcode();
