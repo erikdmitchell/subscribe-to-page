@@ -120,8 +120,6 @@ final class Subscribe_To_Page {
     private function init_hooks() {
         add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts_styles' ) );
         add_action( 'init', array( $this, 'init' ), 0 );
-        add_action( 'init', array( $this, 'load_includes' ), 0 );
-        add_action( 'init', array( $this, 'unregister_taxonomies' ), 99 );
     }
 
     /**
@@ -141,25 +139,6 @@ final class Subscribe_To_Page {
      * @return void
      */
     public function frontend_scripts_styles() {
-        // nothing.
-    }
-
-    /**
-     * Load includes.
-     *
-     * @access public
-     * @return void
-     */
-    public function load_includes() {
-        /*
-        $dirs = array( 'shortcodes', 'post-types', 'taxonomies', 'metaboxes', 'widgets' );
-
-        foreach ( $dirs as $dir ) :
-            foreach ( glob( BOOMI_PATH . $dir . '/*.php' ) as $file ) :
-                include_once( $file );
-            endforeach;
-        endforeach;
-        */
     }
 
 }
