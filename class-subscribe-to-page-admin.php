@@ -64,7 +64,6 @@ class Subscribe_To_Page_Admin {
      */
     public function admin_page() {
         $email_list = get_option( 'subscribe_to_post_emails', array() );
-        print_r( $this->settings );
         ?>
         
         <div class="wrap">
@@ -81,7 +80,15 @@ class Subscribe_To_Page_Admin {
                             <th scope="row"><label for="email_notification">Email Notification</label></th>
                             <td>
                                 <p>This is the email notification that will go out when the page is updated.</p>
-                                <p><textarea name="email_notification" rows="10" cols="50" id="email_notification" class="large-text code"><?php echo esc_html( $this->settings['email_notification'] ); ?></textarea></p>
+                                <?php
+                                wp_editor(
+                                    $this->settings['email_notification'],
+                                    'email_notification',
+                                    array(
+                                        'media_buttons' => false,
+                                    )
+                                );
+                                ?>
                             </td>
                         </tr>
                     </tbody>
@@ -245,10 +252,12 @@ class Subscribe_To_Page_Admin {
         endif;
 
         $settings = array();
-        $settings['email_notification'] = isset( $_POST['email_notification'] ) ? sanitize_text_field( wp_unslash( $_POST['email_notification'] ) ) : '';
+        $settings['email_notification'] = isset( $_POST['email_notification'] ) ? wp_kses_post( wp_unslash( $_POST['email_notification'] ) ) : '';
         $settings = wp_parse_args( $settings, $this->default_settings() );
 
         update_option( 'subscribe_to_post_settings', $settings );
+
+        $this->settings = $settings;
 
         return;
     }
