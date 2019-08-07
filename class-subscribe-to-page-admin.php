@@ -186,7 +186,7 @@ class Subscribe_To_Page_Admin {
         }
 
         update_option( 'subscribe_to_post_emails', $email_list );
-        
+
         return;
     }
 
@@ -229,7 +229,7 @@ class Subscribe_To_Page_Admin {
             </div>
             <?php
         endforeach;
-        
+
         return;
     }
 
@@ -237,7 +237,7 @@ class Subscribe_To_Page_Admin {
      * Update admin settings.
      *
      * @access public
-     * @return void
+     * @return bool
      */
     public function update_admin_settings() {
         if ( ! isset( $_POST['stp_admin_settings'] ) || ! wp_verify_nonce( sanitize_key( $_POST['stp_admin_settings'] ), 'update_settings' ) ) :
@@ -249,6 +249,8 @@ class Subscribe_To_Page_Admin {
         $settings = wp_parse_args( $settings, $this->default_settings() );
 
         update_option( 'subscribe_to_post_settings', $settings );
+        
+        return;
     }
 
     /**
