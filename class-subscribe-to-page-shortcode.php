@@ -41,6 +41,10 @@ class Subscribe_To_Page_Shortcode {
 
         $html = '';
 
+        $html .= '<div class="subscribe-to-page-button-wrap">';
+            $html .= '<button class="stp-subscribe-button">Subscribe to Updates</button>';
+        $html .= '</div>';
+        
         $html .= '<div class="subscribe-to-page-form-wrap">';
             $html .= '<div id="subscribe-to-page-form-response"></div>';
             $html .= '<div id="stp-ajax-loader-container"><div class="stp-ajax-loader-spinner"><img src="' . get_site_url( null, '/wp-admin/images/wpspin_light-2x.gif' ) . '" /></div></div>';

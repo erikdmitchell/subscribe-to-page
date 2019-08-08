@@ -13,3 +13,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.subscribe-to-page-form-wrap {
+    display: none;
+}

@@ -1,5 +1,13 @@
 /* global stpShortcodeObject */
 
+// opens the form on button click.
+jQuery('.stp-subscribe-button').on('click', function(e) {
+    e.preventDefault();
+    
+    jQuery('.subscribe-to-page-form-wrap').toggle();    
+});
+
+// when someone subscribes (aka submits our form.
 jQuery('.subscribe-to-page-form-submit').click(function(e) {
     e.preventDefault();
 
