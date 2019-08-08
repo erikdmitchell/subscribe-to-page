@@ -84,7 +84,9 @@ class Subscribe_To_Page_Controls {
         $email_list = get_option( 'subscribe_to_post_emails', array() );
         $subject = 'Boomi ' . get_the_title( $post_id ) . ' page has been updated.';
         $message = $settings['email_notification'];
-        $mail_sent = wp_mail( $email_list, $subject, $message );
+        $headers = array( 'Content-Type: text/html; charset=UTF-8' );
+
+        $mail_sent = wp_mail( $email_list, $subject, $message, $headers );
 
         if ( $mail_sent ) :
             $response = 'Email sent.';
