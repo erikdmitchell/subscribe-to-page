@@ -1,6 +1,6 @@
 {
   "name": "subscribe-to-page",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Allows visitors to subscribe to a page so they receive an email when the page is updated.",
   "main": "gulpfile.js",
   "scripts": {

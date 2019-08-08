@@ -3,7 +3,7 @@
  * Plugin Name: Subscribe to Page
  * Plugin URI:
  * Description: Allows visitors to subscribe to a page so they receive an email when the page is updated.
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: Erik Mitchell
  * Author URI:
  * License: GPL-2.0+

@@ -21,7 +21,7 @@ final class Subscribe_To_Page {
      * @var string
      * @access public
      */
-    public $version = '0.1.1';
+    public $version = '0.1.2';
 
     /**
      * Settings
