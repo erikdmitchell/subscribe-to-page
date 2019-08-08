@@ -32,9 +32,13 @@ Coming soon.
 
 == Changelog ==
 
+= 0.1.1 =
+
+* Email supports html content.
+
 = 0.1.0 =
 
- * Initial version.
+* Initial version.
 
 == Upgrade Notice ==
 
